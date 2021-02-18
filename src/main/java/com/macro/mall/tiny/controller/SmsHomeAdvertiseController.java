@@ -31,6 +31,31 @@ public class SmsHomeAdvertiseController {
     @Autowired
     private SmsHomeAdvertiseService smsHomeAdvertiseService;
 
+
+    @ApiOperation("添加广告")
+    @RequestMapping(value = "/create",method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult create(@RequestBody SmsHomeAdvertise homeAdvertise){
+        int count = smsHomeAdvertiseService.create(homeAdvertise);
+        if (count > 0){
+            return CommonResult.success(count);
+        }else {
+            return CommonResult.failed();
+        }
+    }
+
+    @ApiOperation("删除广告")
+    @RequestMapping(value = "/delete",method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult delete(@RequestParam("ids") Long ids){
+        int count = smsHomeAdvertiseService.delete(ids);
+        if (count> 0){
+            return CommonResult.success(count);
+        }else {
+            return CommonResult.failed();
+        }
+    }
+
     @ApiOperation("分页查询广告轮播列表")
     @ResponseBody
     @RequestMapping(value = "/list",method = RequestMethod.GET)
