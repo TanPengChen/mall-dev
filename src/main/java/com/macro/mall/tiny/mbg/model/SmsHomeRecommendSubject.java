@@ -18,9 +18,9 @@ public class SmsHomeRecommendSubject implements Serializable {
 
     private static final long serialVersionUID = -8803007703091504156L;
 
-    private Integer id;
+    private Long id;
 
-    private String subjectId;
+    private Long subjectId;
 
     private String subjectName;
 

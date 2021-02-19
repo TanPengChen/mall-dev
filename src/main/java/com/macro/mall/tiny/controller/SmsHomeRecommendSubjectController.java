@@ -42,4 +42,41 @@ public class SmsHomeRecommendSubjectController {
         return CommonResult.success(CommonPage.restPage(smsHomeRecommendSubjectList));
 
     }
+
+    @ApiOperation("专题推荐")
+    @RequestMapping(value = "/update/recommendStatus",method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult updateRecommendStatus(@RequestParam("ids") List<Long> ids,@RequestParam Integer recommendStatus){
+       int count =  smsHomeRecommendSubjectService.updateRecommendStatus(ids,recommendStatus);
+       if (count > 0){
+           return CommonResult.success(count);
+       }else {
+           return CommonResult.failed();
+       }
+    }
+
+    @ApiOperation("排序")
+    @RequestMapping(value = "/update/sort/{id}",method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult updateSort(@PathVariable Long id,Integer sort){
+        int count = smsHomeRecommendSubjectService.updateSort(id,sort);
+        if (count > 0){
+            return CommonResult.success(count);
+        }else {
+            return CommonResult.failed();
+        }
+    }
+
+
+    @ApiOperation("根据ID删除专题推荐")
+    @RequestMapping(value = "/delete",method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult delete(@RequestParam("ids") List<Long> ids){
+        int count = smsHomeRecommendSubjectService.delete(ids);
+        if (count > 0){
+            return CommonResult.success(count);
+        }else {
+            return CommonResult.failed();
+        }
+    }
 }

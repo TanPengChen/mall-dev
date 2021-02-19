@@ -41,4 +41,29 @@ public class SmsHomeRecommendSubjectServiceImpl implements SmsHomeRecommendSubje
         example.setOrderByClause("sort desc");
         return recommendProductMapper.selectByExample(example);
     }
+
+    @Override
+    public int updateRecommendStatus(List<Long> ids, Integer recommendStatus) {
+        SmsHomeRecommendSubjectExample example = new SmsHomeRecommendSubjectExample();
+        example.createCriteria().andIdIn(ids);
+        SmsHomeRecommendSubject record = new SmsHomeRecommendSubject();
+        record.setRecommendStatus(recommendStatus);
+        return recommendProductMapper.updateByExampleSelective(record,example);
+    }
+
+    @Override
+    public int updateSort(Long id, Integer sort) {
+        SmsHomeRecommendSubject subject = new SmsHomeRecommendSubject();
+        subject.setId(id);
+        subject.setSort(sort);
+        return recommendProductMapper.updateByPrimaryKeySelective(subject);
+    }
+
+    @Override
+    public int delete(List<Long> ids) {
+        SmsHomeRecommendSubjectExample example = new SmsHomeRecommendSubjectExample();
+        example.createCriteria().andIdIn(ids);
+        return recommendProductMapper.deleteByExample(example);
+    }
+
 }

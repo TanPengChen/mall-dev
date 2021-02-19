@@ -15,4 +15,10 @@ import java.util.List;
 public interface SmsHomeRecommendSubjectService {
 
     List<SmsHomeRecommendSubject> list(String subjectName, Integer recommendStatus, Integer pageSize, Integer pageNum);
+
+    int updateRecommendStatus(List<Long> ids, Integer recommendStatus);
+
+    int updateSort(Long id, Integer sort);
+
+    int delete(List<Long> id);
 }
