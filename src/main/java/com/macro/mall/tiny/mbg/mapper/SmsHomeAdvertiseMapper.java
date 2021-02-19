@@ -12,4 +12,10 @@ public interface SmsHomeAdvertiseMapper {
     int insert(SmsHomeAdvertise homeAdvertise);
 
     int deleteByPrimaryKey(Long id);
+
+    int updateByPrimaryKeySelective(SmsHomeAdvertise record);
+
+    List<SmsHomeAdvertise> selectByPrimaryKey(Long id);
+
+    int updateByPrimaryKey(Long id);
 }

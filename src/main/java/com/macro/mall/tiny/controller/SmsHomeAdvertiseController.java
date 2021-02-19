@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -67,5 +66,35 @@ public class SmsHomeAdvertiseController {
                                                            ){
        List<SmsHomeAdvertise> smsHomeAdvertiseList =  smsHomeAdvertiseService.list(name,type,endTime,pageNum,pageSize);
        return CommonResult.success(CommonPage.restPage(smsHomeAdvertiseList));
+    }
+
+    @ApiOperation("更新上线/下线状态")
+    @RequestMapping(value = "/update/status/{id}",method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult updateStatus(@PathVariable Long id,Integer status){
+            int count = smsHomeAdvertiseService.updateStatus(id,status);
+            if (count > 0){
+                return CommonResult.success(count);
+            }else {
+                return CommonResult.failed();
+            }
+    }
+
+    @ApiOperation("通过ID查询广告详情")
+    @ResponseBody
+    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
+    public CommonResult<List<SmsHomeAdvertise>> getItem(@PathVariable Long id){
+             List<SmsHomeAdvertise> smsHomeAdvertiseList =smsHomeAdvertiseService.getItem(id);
+             return CommonResult.success(smsHomeAdvertiseList);
+    }
+
+    @ApiOperation("修改广告")
+    @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult update(@PathVariable Long id, @RequestBody SmsHomeAdvertise advertise) {
+        int count = smsHomeAdvertiseService.update(id, advertise);
+        if (count > 0)
+            return CommonResult.success(count);
+        return CommonResult.failed();
     }
 }

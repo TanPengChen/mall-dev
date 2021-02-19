@@ -11,4 +11,10 @@ public interface SmsHomeAdvertiseService {
     int create(SmsHomeAdvertise homeAdvertise);
 
     int delete(Long ids);
+
+    int update(Long id, SmsHomeAdvertise advertise);
+
+    List<SmsHomeAdvertise> getItem(Long id);
+
+    int updateStatus(Long id, Integer status);
 }

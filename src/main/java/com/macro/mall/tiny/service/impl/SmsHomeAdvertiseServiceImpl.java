@@ -75,4 +75,23 @@ public class SmsHomeAdvertiseServiceImpl implements SmsHomeAdvertiseService {
     public int delete(Long ids) {
         return advertiseMapper.deleteByPrimaryKey(ids);
     }
+
+    @Override
+    public int update(Long id, SmsHomeAdvertise advertise) {
+        advertise.setId(id);
+        return advertiseMapper.updateByPrimaryKeySelective(advertise);
+    }
+
+    @Override
+    public List<SmsHomeAdvertise> getItem(Long id) {
+        return advertiseMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public int updateStatus(Long id, Integer status) {
+        SmsHomeAdvertise advertise = new SmsHomeAdvertise();
+        advertise.setId(id);
+        advertise.setStatus(status);
+        return advertiseMapper.updateByPrimaryKeySelective(advertise);
+    }
 }
