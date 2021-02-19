@@ -63,4 +63,16 @@ public class SmsHomeAdvertiseServiceImpl implements SmsHomeAdvertiseService {
         example.setOrderByClause("sort desc");
         return advertiseMapper.selectByExample(example);
     }
+
+    @Override
+    public int create(SmsHomeAdvertise homeAdvertise) {
+        homeAdvertise.setClickCount(0);
+        homeAdvertise.setOrderCount(0);
+        return advertiseMapper.insert(homeAdvertise);
+    }
+
+    @Override
+    public int delete(Long ids) {
+        return advertiseMapper.deleteByPrimaryKey(ids);
+    }
 }
