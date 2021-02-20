@@ -45,4 +45,19 @@ public class SmsFlashPromotionServiceImpl implements SmsFlashPromotionService {
     public int delete(Long id) {
         return smsFlashPromotionMapper.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public int update(Long id, SmsFlashPromotion smsFlashPromotion) {
+        smsFlashPromotion.setId(id);
+        return smsFlashPromotionMapper.updateByPrimaryKeySelective(smsFlashPromotion);
+    }
+
+    @Override
+    public int updateStatus(Long id, Integer status) {
+        SmsFlashPromotion smsFlashPromotion = new SmsFlashPromotion();
+        smsFlashPromotion.setId(id);
+        smsFlashPromotion.setStatus(status);
+        return smsFlashPromotionMapper.updateByPrimaryKeySelective(smsFlashPromotion);
+    }
+
 }

@@ -19,4 +19,8 @@ public interface SmsFlashPromotionService {
     int create(SmsFlashPromotion smsFlashPromotion);
 
     int delete(Long id);
+
+    int update(Long id, SmsFlashPromotion smsFlashPromotion);
+
+    int updateStatus(Long id, Integer status);
 }

@@ -12,4 +12,6 @@ public interface SmsFlashPromotionMapper {
     int insertSelective(SmsFlashPromotion smsFlashPromotion);
 
     int deleteByPrimaryKey(Long id);
+
+    int updateByPrimaryKeySelective(SmsFlashPromotion smsFlashPromotion);
 }

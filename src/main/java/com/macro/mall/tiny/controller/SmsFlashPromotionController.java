@@ -65,4 +65,30 @@ public class SmsFlashPromotionController {
             return CommonResult.failed();
         }
     }
+
+
+    @ApiOperation("秒杀活动修改")
+    @ResponseBody
+    @RequestMapping(value = "/update/{id}",method = RequestMethod.POST)
+    public CommonResult update(@PathVariable Long id,@RequestBody SmsFlashPromotion smsFlashPromotion ){
+        int count = smsFlashPromotionService.update(id,smsFlashPromotion);
+        if (count > 0){
+            return CommonResult.success(count);
+        }else {
+            return CommonResult.failed();
+        }
+    }
+
+    @ApiOperation("秒杀活动上/下线")
+    @ResponseBody
+    @RequestMapping(value = "/update/status/{id}",method = RequestMethod.POST)
+    public CommonResult updateStatus(@PathVariable Long id,Integer status){
+       int count = smsFlashPromotionService.updateStatus(id,status);
+       if (count > 0){
+           return CommonResult.success(count);
+       }else {
+           return CommonResult.failed();
+       }
+
+    }
 }
