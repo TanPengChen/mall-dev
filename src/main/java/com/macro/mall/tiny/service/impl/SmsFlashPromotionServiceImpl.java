@@ -37,7 +37,19 @@ public class SmsFlashPromotionServiceImpl implements SmsFlashPromotionService {
     }
 
     @Override
-    public int create(SmsFlashPromotion smsFlashPromotion) {
+    public int create(SmsFlashPromotion smsFlashPromotion) throws Exception {
+        if (StringUtils.isBlank(smsFlashPromotion.getTitle())){
+            throw new Exception("请设置秒杀项目名称");
+        }
+        if (smsFlashPromotion.getStartDate() == null){
+            throw new Exception("请设置开始时间");
+        }
+        if (smsFlashPromotion.getEndDate() == null){
+            throw new Exception("请设置结束时间");
+        }
+        if (smsFlashPromotion.getStartDate().compareTo(smsFlashPromotion.getEndDate() )> 0){
+            throw new Exception("开始结束时间不对，请重新设置");
+        }
         return smsFlashPromotionMapper.insertSelective(smsFlashPromotion);
     }
 
@@ -47,8 +59,14 @@ public class SmsFlashPromotionServiceImpl implements SmsFlashPromotionService {
     }
 
     @Override
-    public int update(Long id, SmsFlashPromotion smsFlashPromotion) {
+    public int update(Long id, SmsFlashPromotion smsFlashPromotion) throws Exception {
         smsFlashPromotion.setId(id);
+        if (smsFlashPromotion.getStartDate().compareTo(smsFlashPromotion.getEndDate()) > 0){
+            throw new Exception("开始结束时间不对，请重新设置");
+        }
+        if (StringUtils.isBlank(smsFlashPromotion.getTitle())){
+            throw new Exception("活动标题不能为空");
+        }
         return smsFlashPromotionMapper.updateByPrimaryKeySelective(smsFlashPromotion);
     }
 

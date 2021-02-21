@@ -34,7 +34,7 @@ public class SmsFlashPromotionController {
     @ApiOperation("添加秒杀项目")
     @RequestMapping(value = "/create",method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult create(@RequestBody SmsFlashPromotion smsFlashPromotion){
+    public CommonResult create(@RequestBody SmsFlashPromotion smsFlashPromotion) throws Exception {
         int count = smsFlashPromotionService.create(smsFlashPromotion);
         if (count > 0){
             return CommonResult.success(count);
@@ -69,7 +69,7 @@ public class SmsFlashPromotionController {
     @ApiOperation("秒杀活动修改")
     @ResponseBody
     @RequestMapping(value = "/update/{id}",method = RequestMethod.POST)
-    public CommonResult update(@PathVariable Long id,@RequestBody SmsFlashPromotion smsFlashPromotion ){
+    public CommonResult update(@PathVariable Long id,@RequestBody SmsFlashPromotion smsFlashPromotion ) throws Exception {
         int count = smsFlashPromotionService.update(id,smsFlashPromotion);
         if (count > 0){
             return CommonResult.success(count);

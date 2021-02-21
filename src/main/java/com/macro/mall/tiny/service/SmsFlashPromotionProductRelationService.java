@@ -1,4 +1,4 @@
-package com.macro.mall.tiny.service.impl;
+package com.macro.mall.tiny.service;
 
 
 /**

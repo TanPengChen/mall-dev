@@ -47,7 +47,7 @@ public class UmsAdminController {
     @ApiOperation(value = "用户注册")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult<UmsAdmin> register(@RequestBody UmsAdmin umsAdminParam, BindingResult result) {
+    public CommonResult<UmsAdmin> register(@RequestBody UmsAdmin umsAdminParam, BindingResult result) throws Exception {
         UmsAdmin umsAdmin = adminService.register(umsAdminParam);
         if (umsAdmin == null) {
             CommonResult.failed();
@@ -164,7 +164,7 @@ public class UmsAdminController {
     @ApiOperation("修改指定用户信息")
     @RequestMapping(value = "/update/{id}",method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult update(@PathVariable Long id,@RequestBody UmsAdmin admin){
+    public CommonResult update(@PathVariable Long id,@RequestBody UmsAdmin admin) throws Exception {
         int count = adminService.update(id,admin);
         if (count >= 0){
             return CommonResult.success(count);
@@ -175,7 +175,7 @@ public class UmsAdminController {
     @ApiOperation("修改账号的状态")
     @RequestMapping(value = "/updateStatus/{id}",method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult updateStatus(@PathVariable Long id,@RequestParam(value = "status") Integer status){
+    public CommonResult updateStatus(@PathVariable Long id,@RequestParam(value = "status") Integer status) throws Exception {
         UmsAdmin umsAdmin = new UmsAdmin();
         umsAdmin.setStatus(status);
         int count = adminService.update(id, umsAdmin);

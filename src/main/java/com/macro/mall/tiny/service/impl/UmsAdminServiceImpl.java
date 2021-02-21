@@ -13,6 +13,7 @@ import com.macro.mall.tiny.mbg.model.*;
 import com.macro.mall.tiny.service.UmsAdminCacheService;
 import com.macro.mall.tiny.service.UmsAdminService;
 import com.macro.mall.tiny.service.UmsRoleService;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -28,7 +29,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 import java.security.Principal;
 import java.util.*;
@@ -74,7 +74,7 @@ public class UmsAdminServiceImpl implements UmsAdminService {
     }
 
     @Override
-    public UmsAdmin register(UmsAdmin umsAdminParam) {
+    public UmsAdmin register(UmsAdmin umsAdminParam) throws Exception {
 
         UmsAdmin umsAdmin = new UmsAdmin();
         BeanUtils.copyProperties(umsAdminParam, umsAdmin);
@@ -83,8 +83,9 @@ public class UmsAdminServiceImpl implements UmsAdminService {
         //查询是否有相同用户名的用户
         UmsAdminExample example = new UmsAdminExample();
         example.createCriteria().andUsernameEqualTo(umsAdmin.getUsername());
+        List<UmsAdmin> umsAdminList = new ArrayList<>();
         try {
-            List<UmsAdmin> umsAdminList = adminMapper.selectByExample(example);
+            adminMapper.selectByExample(example);
             if (umsAdminList.size() > 0) {
                 return null;
             }
@@ -94,6 +95,14 @@ public class UmsAdminServiceImpl implements UmsAdminService {
             adminMapper.insert(umsAdmin);
         }catch (NullPointerException e){
            LOGGER.info("请输入用户名");
+        }
+        if (StringUtils.isBlank(umsAdmin.getUsername()) || StringUtils.isBlank(umsAdmin.getNickName()) ){
+            throw new Exception("用户名或账号不能同时为空");
+        }
+        for (UmsAdmin umsAdmin1:umsAdminList) {
+            if (umsAdmin1.getNickName().equals(umsAdmin.getNickName())){
+                throw new Exception("该账号已存在，请重新注册");
+            }
         }
         return umsAdmin;
     }
@@ -195,7 +204,7 @@ public class UmsAdminServiceImpl implements UmsAdminService {
     }
 
     @Override
-    public int update(Long id, UmsAdmin admin) {
+    public int update(Long id, UmsAdmin admin) throws Exception {
         admin.setId(id);
         UmsAdmin umsAdmin = adminMapper.selectByPrimaryKey(id);
         if (umsAdmin.getPassword().equals(admin.getPassword())){
@@ -206,6 +215,9 @@ public class UmsAdminServiceImpl implements UmsAdminService {
             }else {
                 admin.setPassword(passwordEncoder.encode(umsAdmin.getPassword()));
             }
+        }
+        if (StringUtils.isBlank(admin.getUsername()) || StringUtils.isBlank(admin.getNickName())){
+            throw new Exception("用户名或账号不能同时为空");
         }
         int count = adminMapper.updateByPrimaryKeySelective(admin);
         adminCacheService.delAdmin(id);

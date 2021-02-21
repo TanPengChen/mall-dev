@@ -20,7 +20,7 @@ public interface UmsAdminService {
     /**
      * 注册功能
      */
-    UmsAdmin register(UmsAdmin umsAdminParam);
+    UmsAdmin register(UmsAdmin umsAdminParam) throws Exception;
 
     /**
      * 登录功能
@@ -80,5 +80,5 @@ public interface UmsAdminService {
      * @param admin
      * @return
      */
-    int update(Long id, UmsAdmin admin);
+    int update(Long id, UmsAdmin admin) throws Exception;
 }

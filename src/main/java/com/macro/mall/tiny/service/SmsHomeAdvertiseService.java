@@ -8,7 +8,7 @@ public interface SmsHomeAdvertiseService {
 
     List<SmsHomeAdvertise> list(String name, Integer type, String endTime, Integer pageNum, Integer pageSize);
 
-    int create(SmsHomeAdvertise homeAdvertise);
+    int create(SmsHomeAdvertise homeAdvertise) throws Exception;
 
     int delete(Long ids);
 

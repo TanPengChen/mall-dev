@@ -65,9 +65,15 @@ public class SmsHomeAdvertiseServiceImpl implements SmsHomeAdvertiseService {
     }
 
     @Override
-    public int create(SmsHomeAdvertise homeAdvertise) {
+    public int create(SmsHomeAdvertise homeAdvertise) throws Exception {
         homeAdvertise.setClickCount(0);
         homeAdvertise.setOrderCount(0);
+        if (StringUtils.isBlank(homeAdvertise.getName())){
+            throw new Exception("广告名称不能为空");
+        }
+        if (homeAdvertise.getStartTime().compareTo(homeAdvertise.getEndTime()) > 0){
+            throw new Exception("开始时间不能晚于结束时间");
+        }
         return advertiseMapper.insert(homeAdvertise);
     }
 

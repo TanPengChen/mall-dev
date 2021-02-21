@@ -34,7 +34,7 @@ public class SmsHomeAdvertiseController {
     @ApiOperation("添加广告")
     @RequestMapping(value = "/create",method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult create(@RequestBody SmsHomeAdvertise homeAdvertise){
+    public CommonResult create(@RequestBody SmsHomeAdvertise homeAdvertise) throws Exception {
         int count = smsHomeAdvertiseService.create(homeAdvertise);
         if (count > 0){
             return CommonResult.success(count);

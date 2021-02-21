@@ -16,11 +16,11 @@ public interface SmsFlashPromotionService {
 
     List<SmsFlashPromotion> list(String title, Integer pageNum, Integer pageSize);
 
-    int create(SmsFlashPromotion smsFlashPromotion);
+    int create(SmsFlashPromotion smsFlashPromotion) throws Exception;
 
     int delete(Long id);
 
-    int update(Long id, SmsFlashPromotion smsFlashPromotion);
+    int update(Long id, SmsFlashPromotion smsFlashPromotion) throws Exception;
 
     int updateStatus(Long id, Integer status);
 }
