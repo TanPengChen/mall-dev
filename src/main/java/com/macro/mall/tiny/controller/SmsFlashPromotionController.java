@@ -46,7 +46,7 @@ public class SmsFlashPromotionController {
     @RequestMapping(value = "/list",method = RequestMethod.GET)
     @ApiOperation("秒杀活动列表")
     @ResponseBody
-    public CommonResult<CommonPage<SmsFlashPromotion>> list(@RequestParam(value = "title",required = false) String title,
+    public CommonResult<CommonPage<SmsFlashPromotion>> list(@RequestParam(value = "keyword",required = false) String title,
                                                             @RequestParam(value = "pageSize",defaultValue = "5") Integer pageSize,
                                                             @RequestParam(value = "pageNum",defaultValue = "1") Integer pageNum
                                                             ){
@@ -65,7 +65,6 @@ public class SmsFlashPromotionController {
             return CommonResult.failed();
         }
     }
-
 
     @ApiOperation("秒杀活动修改")
     @ResponseBody
