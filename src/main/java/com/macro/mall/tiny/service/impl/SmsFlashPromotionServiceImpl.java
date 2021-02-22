@@ -38,8 +38,10 @@ public class SmsFlashPromotionServiceImpl implements SmsFlashPromotionService {
 
     @Override
     public int create(SmsFlashPromotion smsFlashPromotion) throws Exception {
-        if (StringUtils.isBlank(smsFlashPromotion.getTitle())){
-            throw new Exception("请设置秒杀项目名称");
+        try {
+            StringUtils.isBlank(smsFlashPromotion.getTitle());
+        }catch (Exception e){
+            e.printStackTrace();
         }
         if (smsFlashPromotion.getStartDate() == null){
             throw new Exception("请设置开始时间");

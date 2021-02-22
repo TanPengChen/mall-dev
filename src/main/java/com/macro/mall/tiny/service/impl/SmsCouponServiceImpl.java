@@ -1,6 +1,7 @@
 package com.macro.mall.tiny.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import com.macro.mall.tiny.dao.SmsCouponDao;
 import com.macro.mall.tiny.mbg.mapper.SmsCouponMapper;
 import com.macro.mall.tiny.mbg.model.SmsCoupon;
 import com.macro.mall.tiny.mbg.model.SmsCouponExample;
@@ -24,6 +25,10 @@ public class SmsCouponServiceImpl implements SmsCouponService {
     @Autowired
     private SmsCouponMapper couponMapper;
 
+    @Autowired
+    private SmsCouponDao smsCouponDao;
+
+
     @Override
     public List<SmsCoupon> list(String name, Integer type, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum,pageSize);
@@ -41,5 +46,10 @@ public class SmsCouponServiceImpl implements SmsCouponService {
     @Override
     public int delete(Long id) {
         return couponMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public int listById(Long id) {
+        return smsCouponDao.getItem(id);
     }
 }

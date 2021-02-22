@@ -30,6 +30,7 @@ public class SmsCouponController {
     private SmsCouponService smsCouponService;
 
 
+
     @ApiOperation("分页查询优惠劵列表")
     @RequestMapping(value = "/list",method = RequestMethod.GET)
     @ResponseBody
@@ -53,6 +54,17 @@ public class SmsCouponController {
         }else {
             return CommonResult.failed();
         }
+    }
 
+    @ApiOperation("优惠券领取详情")
+    @ResponseBody
+    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
+    public CommonResult listById(@PathVariable Long id){
+       int count =  smsCouponService.listById(id);
+       if (count > 0){
+           return CommonResult.success(count);
+       }else {
+           return CommonResult.failed();
+       }
     }
 }
