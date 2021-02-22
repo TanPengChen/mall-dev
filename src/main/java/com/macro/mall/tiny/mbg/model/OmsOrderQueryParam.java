@@ -11,8 +11,7 @@ import lombok.Setter;
  * @version 1.0
  * @date 2021/2/9 10:53
  */
-@Setter
-@Getter
+
 public class OmsOrderQueryParam {
 
     @ApiModelProperty(value = "订单编号")
@@ -28,4 +27,51 @@ public class OmsOrderQueryParam {
     @ApiModelProperty(value = "订单提交时间")
     private String createTime;
 
+    public String getOrderSn() {
+        return orderSn;
+    }
+
+    public void setOrderSn(String orderSn) {
+        this.orderSn = orderSn;
+    }
+
+    public String getReceiverKeyword() {
+        return receiverKeyword;
+    }
+
+    public void setReceiverKeyword(String receiverKeyword) {
+        this.receiverKeyword = receiverKeyword;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Integer getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(Integer orderType) {
+        this.orderType = orderType;
+    }
+
+    public Integer getSourceType() {
+        return sourceType;
+    }
+
+    public void setSourceType(Integer sourceType) {
+        this.sourceType = sourceType;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
 }

@@ -9,4 +9,6 @@ public interface SmsCouponService {
     List<SmsCoupon> list(String name, Integer type, Integer pageNum, Integer pageSize);
 
     int delete(Long id);
+
+    int listById(Long id);
 }
