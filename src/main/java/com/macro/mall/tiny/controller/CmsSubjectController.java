@@ -42,4 +42,13 @@ public class CmsSubjectController {
 
     }
 
+    @ApiOperation("专题列表")
+    @RequestMapping(value = "/listAll",method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<List<CmsSubject>> listAll(){
+       List<CmsSubject> cmsSubjectList = cmsSubjectService.listAll();
+       return CommonResult.success(cmsSubjectList);
+
+    }
+
 }

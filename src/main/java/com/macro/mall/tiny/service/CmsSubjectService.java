@@ -7,4 +7,7 @@ import java.util.List;
 public interface CmsSubjectService {
 
     List<CmsSubject> list(String keyword, Integer pageNum, Integer pageSize);
+
+    List<CmsSubject> listAll();
+
 }
