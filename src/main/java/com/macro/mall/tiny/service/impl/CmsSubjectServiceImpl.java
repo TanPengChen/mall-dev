@@ -36,4 +36,9 @@ public class CmsSubjectServiceImpl implements CmsSubjectService {
         }
         return cmsSubjectMapper.selectByExample(example);
     }
+
+    @Override
+    public List<CmsSubject> listAll() {
+        return cmsSubjectMapper.selectByExample(new CmsSubjectExample());
+    }
 }
