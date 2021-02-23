@@ -2,6 +2,7 @@ package com.macro.mall.tiny.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.macro.mall.tiny.dao.OmsOrderDao;
+import com.macro.mall.tiny.dao.OmsOrderOperateHistoryDao;
 import com.macro.mall.tiny.dto.OmsOrderDetail;
 import com.macro.mall.tiny.mbg.mapper.OmsOrderMapper;
 import com.macro.mall.tiny.mbg.mapper.OmsOrderOperateHistoryMapper;
@@ -32,6 +33,9 @@ public class OmsOrderServiceImpl implements OmsOrderService {
 
     @Autowired
     private OmsOrderOperateHistoryMapper orderOperateHistoryMapper;
+
+    @Autowired
+    private OmsOrderOperateHistoryDao omsOrderOperateHistoryDao;
 
     @Override
     public List<OmsOrder> list(OmsOrderQueryParam queryParam, Integer pageNum, Integer pageSize) {
@@ -86,6 +90,26 @@ public class OmsOrderServiceImpl implements OmsOrderService {
         OmsOrderExample example = new OmsOrderExample();
         example.createCriteria().andDeleteStatusEqualTo(0).andIdIn(ids);
         return omsOrderMapper.updateByExampleSelective(omsOrder,example);
+    }
+
+    @Override
+    public int updateClose(List<Long> ids, String note) {
+        OmsOrder record = new OmsOrder();
+        record.setStatus(4);
+        OmsOrderExample example = new OmsOrderExample();
+        example.createCriteria().andDeleteStatusEqualTo(0).andIdIn(ids);
+        int count = omsOrderMapper.updateByExampleSelective(record,example);
+        List<OmsOrderOperateHistory> historyList = ids.stream().map(orderId ->{
+            OmsOrderOperateHistory history = new OmsOrderOperateHistory();
+            history.setOrderId(orderId);
+            history.setCreateTime(new Date());
+            history.setOperateMan("后台管路员");
+            history.setOrderStatus(4);
+            history.setNote("订单关闭" + note);
+            return history;
+        }).collect(Collectors.toList());
+        omsOrderOperateHistoryDao.insertList(historyList);
+        return count;
     }
 
 }

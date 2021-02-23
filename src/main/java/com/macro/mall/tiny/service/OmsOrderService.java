@@ -33,4 +33,6 @@ public interface OmsOrderService {
      * @return
      */
     int delete(List<Long> ids);
+
+    int updateClose(List<Long> ids, String note);
 }

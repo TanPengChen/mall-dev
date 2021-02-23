@@ -93,6 +93,19 @@ public class OmsOrderController {
         }else {
             return CommonResult.failed();
         }
+    }
 
+    @ApiOperation("关闭订单")
+    @ResponseBody
+    @RequestMapping(value = "/update/close",method = RequestMethod.POST)
+    public CommonResult updateClose(@RequestParam("ids") List<Long> ids,
+                                    @RequestParam("note") String note
+                                    ){
+        int count = omsOrderService.updateClose(ids,note);
+        if (count >0){
+            return CommonResult.success(count);
+        }else {
+            return CommonResult.failed();
+        }
     }
 }
