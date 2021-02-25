@@ -2,6 +2,7 @@ package com.macro.mall.tiny.controller;
 
 import com.macro.mall.tiny.common.api.CommonPage;
 import com.macro.mall.tiny.common.api.CommonResult;
+import com.macro.mall.tiny.dto.PmsProductParam;
 import com.macro.mall.tiny.dto.PmsProductQueryParam;
 import com.macro.mall.tiny.mbg.model.PmsProduct;
 import com.macro.mall.tiny.service.PmsProductService;
@@ -29,6 +30,19 @@ public class PmsProductController {
 
     @Autowired
     private PmsProductService pmsProductService;
+
+
+    @ApiOperation("创建商品")
+    @RequestMapping(value = "/create",method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult create(@RequestBody PmsProductParam pmsProductParam){
+       int count =  pmsProductService.create(pmsProductParam);
+       if (count>0){
+           return CommonResult.success(count);
+       }else {
+           return CommonResult.failed();
+       }
+    }
 
     @ApiOperation("分页查询商品列表")
     @RequestMapping(value = "/list",method = RequestMethod.GET)

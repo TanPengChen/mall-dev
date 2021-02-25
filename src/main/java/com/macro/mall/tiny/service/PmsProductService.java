@@ -1,5 +1,6 @@
 package com.macro.mall.tiny.service;
 
+import com.macro.mall.tiny.dto.PmsProductParam;
 import com.macro.mall.tiny.dto.PmsProductQueryParam;
 import com.macro.mall.tiny.mbg.model.PmsProduct;
 
@@ -22,4 +23,6 @@ public interface PmsProductService {
     int publishStatus(List<Long> ids, Integer publishStatus);
 
     int recommendStatus(List<Long> ids, Integer recommendStatus);
+
+    int create(PmsProductParam pmsProductParam);
 }
