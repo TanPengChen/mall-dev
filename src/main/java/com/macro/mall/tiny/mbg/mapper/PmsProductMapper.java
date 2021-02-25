@@ -20,4 +20,6 @@ public interface PmsProductMapper {
 
     int updateByExampleSelective(@Param("record") PmsProduct record,@Param("example") PmsProductExample example);
 
+    void insertSelective(PmsProduct pmsProduct);
+
 }
